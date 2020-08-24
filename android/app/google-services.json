@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "716757043569",
+    "firebase_url": "https://instagramchat-5e6ec.firebaseio.com",
+    "project_id": "instagramchat-5e6ec",
+    "storage_bucket": "instagramchat-5e6ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716757043569:android:538dd886748f4dd23a8ed0",
+        "android_client_info": {
+          "package_name": "com.example.instagram_pro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716757043569-qfvhokfh8900ihmvutqcgo4592k6o8fi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9yDSt1HM4fn27ZGwH884b-62br7VdTys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716757043569-qfvhokfh8900ihmvutqcgo4592k6o8fi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
