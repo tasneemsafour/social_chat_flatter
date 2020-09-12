@@ -57,6 +57,12 @@ flutter:
     - family: Signatra
       fonts:
         - asset: assets/fontss/Signatra.ttf
+    - family: Pacifico-Regular
+      fonts:
+        - asset: fonts/Pacifico-Regular.ttf
+    - family: SourceSansPro-Regular
+      fonts:
+          asset: fonts/SourceSansPro-Regular.ttf
   assets:
     - assets/images/google_signin_button.png
     - assets/images/upload.svg

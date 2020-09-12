@@ -41,7 +41,9 @@ class _HomeState extends State<Home> {
     }
     // should go to the page requirement
     ontap(int pageIndex){
-    pagecontroller.jumpToPage(pageIndex);
+    //pagecontroller.jumpToPage(pageIndex);
+      // another solution
+      pagecontroller.animateToPage(pageIndex,duration: Duration (microseconds: 200),curve: Curves.bounceInOut);;
     }
     onpagechanged(int pageIndex){
     setState(() {
