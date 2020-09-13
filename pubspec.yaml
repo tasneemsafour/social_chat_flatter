@@ -62,7 +62,7 @@ flutter:
         - asset: fonts/Pacifico-Regular.ttf
     - family: SourceSansPro-Regular
       fonts:
-          asset: fonts/SourceSansPro-Regular.ttf
+        - asset: fonts/SourceSansPro-Regular.ttf
   assets:
     - assets/images/google_signin_button.png
     - assets/images/upload.svg
