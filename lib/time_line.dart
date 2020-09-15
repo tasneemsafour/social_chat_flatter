@@ -15,11 +15,11 @@ class _ProfileState extends State<Time_line> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    update_user();
+    creat_user();
     getuser_asynce();
   }
  void creat_user()
-  {hh
+  {
     userRef.document("2222").setData({"name": "heba ", "isAdmin" :false , "postCount" :2});
   }
   void update_user () async

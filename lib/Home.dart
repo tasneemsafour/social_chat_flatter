@@ -1,15 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_pro/activity_feed.dart';
+import 'package:instagram_pro/model/users.dart';
 import 'package:instagram_pro/profile.dart';
 import 'package:instagram_pro/search.dart';
 import 'package:instagram_pro/time_line.dart';
 import 'package:instagram_pro/upload.dart';
 
+final userRef = Firestore.instance.collection("users");
 final googlesign = GoogleSignIn();
 bool Authe = false;
+final DateTime timeStamp= DateTime.now();
+User currentuser ;
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -22,13 +27,61 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     googlesign.onCurrentUserChanged.listen((account) {
-      setState(() {
-        Authe = true;
-      });
+      handleSignIn(account);
     });
     onError(err) {
       print(" error is $err");
-    }}
+    }
+    try {
+      googlesign.signInSilently(suppressErrors: false).then((accouant){
+        handleSignIn(accouant);
+      }).catchError((e){
+        print( "error $e");
+      });
+    } catch(e) {
+      print( " silent sign in error $e ");
+    }
+  }
+    handleSignIn (GoogleSignInAccount account)
+   {
+     if (account!=null){
+       creatUserInFirestore();
+       setState(() {
+         Authe=true;
+       });}
+     else{
+       setState(() {
+         Authe=false;
+       });}
+   }
+   creatUserInFirestore()async{
+    //**************** get user account
+    final GoogleSignInAccount useraccount = googlesign.currentUser;
+    //**************** get user id
+     DocumentSnapshot doc =await userRef.document(useraccount.id).get();
+    //****************** if not find create user
+    String username = " ";
+    if (!doc.exists)
+    {
+      username = await Navigator.push(context,
+          MaterialPageRoute(builder: (context) => creatUserInFirestore()));
+      //*********** insert data to firesate
+      userRef.document(useraccount.id).setData({
+        "id": useraccount.id,
+        "name": username,
+        "photoUrl": useraccount.photoUrl,
+        "email": useraccount.email,
+        "bio": " ",
+        "displayName": useraccount.displayName,
+        "timestamp": timeStamp,
+      });
+      doc = await userRef.document(useraccount.id).get();
+    }
+    //************save info user in current user
+    currentuser = User.formDoc(doc);
+
+   }
+
    // make dispose to not take a lot in cash and to pageview
   @override
   void dispose()
@@ -39,11 +92,14 @@ class _HomeState extends State<Home> {
     login() {
       googlesign.signIn();
     }
+   logout() {
+     googlesign.signOut();
+   }
     // should go to the page requirement
     ontap(int pageIndex){
     //pagecontroller.jumpToPage(pageIndex);
       // another solution
-      pagecontroller.animateToPage(pageIndex,duration: Duration (microseconds: 200),curve: Curves.bounceInOut);;
+      pagecontroller.animateToPage(pageIndex,duration: Duration (microseconds: 200),curve: Curves.bounceInOut);
     }
     onpagechanged(int pageIndex){
     setState(() {
@@ -56,7 +112,12 @@ class _HomeState extends State<Home> {
       return Scaffold(
         body: PageView(
           children: <Widget>[
-            Time_line(),
+            //Time_line(),
+            RaisedButton(
+              child: Text(" log out "),
+                onPressed: (){
+                logout();
+                }),
             Activity_feed(),
             Upload(),
             Search(),
