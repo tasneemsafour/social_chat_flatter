@@ -93,8 +93,6 @@ class _ProfileState extends State<Time_line> {
       body: ListView(
           children: user.map((user) => Text( user["name"] , style: TextStyle(fontSize: 20.0),)).toList()
   */
-
-
   /*
   byyy futurebuilder
 

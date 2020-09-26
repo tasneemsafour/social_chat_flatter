@@ -60,15 +60,16 @@ class _HomeState extends State<Home> {
     //**************** get user id
      DocumentSnapshot doc =await userRef.document(useraccount.id).get();
     //****************** if not find create user
-    String username = " ";
+    String username ;
     if (!doc.exists)
     {
       username = await Navigator.push(context,
           MaterialPageRoute(builder: (context) => creatUserInFirestore()));
+      print(username + "**********************************************************");
       //*********** insert data to firesate
       userRef.document(useraccount.id).setData({
         "id": useraccount.id,
-        "name": username,
+        "name":username,
         "photoUrl": useraccount.photoUrl,
         "email": useraccount.email,
         "bio": " ",
