@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_pro/activity_feed.dart';
 import 'package:instagram_pro/model/users.dart';
 import 'package:instagram_pro/profile.dart';
@@ -11,6 +13,11 @@ import 'package:instagram_pro/time_line.dart';
 import 'package:instagram_pro/upload.dart';
 
 final userRef = Firestore.instance.collection("users");
+final StorageReference storageRef = FirebaseStorage.instance.ref();
+final postRef = Firestore.instance.collection("posts");
+final commentRef = Firestore.instance.collection("comments");
+final feedRef = Firestore.instance.collection("feed");
+
 final googlesign = GoogleSignIn();
 bool Authe = false;
 final DateTime timeStamp= DateTime.now();
@@ -39,7 +46,7 @@ class _HomeState extends State<Home> {
         print( "error $e");
       });
     } catch(e) {
-      print( " silent sign in error $e ");
+      print( " silent sign in error $e");
     }
   }
     handleSignIn (GoogleSignInAccount account)
@@ -120,9 +127,9 @@ class _HomeState extends State<Home> {
                 logout();
                 }),
             Activity_feed(),
-            Upload(),
+            Upload (currentuser : currentuser),
             Search(),
-            Profile(),
+            Profile(current : currentuser),
           ],
           controller: pagecontroller,
           onPageChanged: onpagechanged,
@@ -130,7 +137,7 @@ class _HomeState extends State<Home> {
           physics: NeverScrollableScrollPhysics(),
         ),
         bottomNavigationBar: CupertinoTabBar(
-          activeColor: Colors.blue,
+          activeColor: Colors.green,
           currentIndex: pageIndex,
           onTap: ontap,
           items: [
@@ -151,9 +158,7 @@ class _HomeState extends State<Home> {
     Widget build_in_outo_screen() {
       return Scaffold(
         body: Container(
-            color: Theme
-                .of(context)
-                .primaryColor,
+            color: Colors.lightGreen[500],
             child: Column(
               children: <Widget>[
                 Container(
@@ -186,13 +191,11 @@ class _HomeState extends State<Home> {
                               margin: EdgeInsets.only(top: 15),
                               padding: EdgeInsets.all(15),
                               decoration: BoxDecoration(
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor,
+                                  color:Colors.lightGreen[500],
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),)
                               ),
-                              child: Text(" login with google ",
+                              child: Text("login with google",
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),),
                             ),

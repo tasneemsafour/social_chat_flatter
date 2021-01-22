@@ -9,6 +9,6 @@ AppBar header ( {String  name , bool titleSocialChat , removeBackButton = false 
     centerTitle: true,
     title: Text(titleSocialChat ? " Social Chat" : name ,
     style: TextStyle (color: Colors.white , fontSize: 25.0 ,fontFamily: 'Pacifico-Regular'),),
-    backgroundColor:Colors.blue[700] ,
+    backgroundColor:Colors.lightGreen[500],
   );
 }

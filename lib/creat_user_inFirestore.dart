@@ -1,10 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_pro/header.dart';
-
-
 
 class creat_user extends StatefulWidget {
   @override
