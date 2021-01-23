@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_pro/Home.dart';
 import 'package:instagram_pro/header.dart';
+import 'package:instagram_pro/post_screen.dart';
+import 'package:instagram_pro/profile.dart';
 import 'package:instagram_pro/progress_loading.dart';
 import "package:timeago/timeago.dart" as timeago ;
 class Activity_feed extends StatefulWidget {
@@ -89,7 +91,9 @@ class activateFeedItem extends StatelessWidget {
      if (type=="like" ||type== "comment")
        {
          mediaPreview = GestureDetector(
-           onTap: (){},
+           onTap: (){
+             //show_post(context) ;
+             },
            child: Container(
              height: 50.0,
              width: 50.0,
@@ -122,6 +126,20 @@ class activateFeedItem extends StatelessWidget {
        activityItemText="error : $type";
      }
    }
+/*
+   show_post(context){
+     Navigator.push(context,MaterialPageRoute(builder: (context){
+       return Post_screen(postId: postId , userId: userId,);
+     }));
+   }
+
+  show_profile(context ,{current}){
+    Navigator.push(context,MaterialPageRoute(builder: (context){
+      return Profile(current: current,);
+    }));
+  }
+ */
+
   @override
   Widget build(BuildContext context) {
     configureMedia(context);
@@ -130,6 +148,9 @@ class activateFeedItem extends StatelessWidget {
       child: Container(
         child: ListTile(
           title:GestureDetector(
+            onTap: (){
+              //show_profile(context,current: currentuser);
+             },
             child: RichText(
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
@@ -152,6 +173,9 @@ class activateFeedItem extends StatelessWidget {
             ),),
           ) ,
           subtitle: Text(timeago.format(timeTamp.toDate()),overflow: TextOverflow.ellipsis,),
+          leading: CircleAvatar(
+            backgroundImage: CachedNetworkImageProvider(userProfileImage),
+          ),
           trailing: mediaPreview,
         ),
       ),
